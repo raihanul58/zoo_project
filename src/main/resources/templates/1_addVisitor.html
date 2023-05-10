@@ -1,0 +1,36 @@
+<!--
+  Name: Md Raihanul Kabir Rafi
+  R- number: r0913740
+-->
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form th:action="@{/visitor/view}">
+        <p>
+            <label for="firstName">First name:</label>
+            <input type="text" id="firstName" name="firstName">
+        </p>
+        <p>
+            <label for="surName">Surname:</label>
+            <input type="text" id="surName" name="surName">
+        </p>
+        <p>
+            <label for="birthYear">Year of birth:</label>
+            <input type="text" id="birthYear" name="birthYear">
+        </p>
+        <p>
+            <input type="submit" value="Continue without personal code">
+        </p>
+    </form>
+
+    <a th:href="@{/}">Back to home page</a>
+
+</body>
+</html>

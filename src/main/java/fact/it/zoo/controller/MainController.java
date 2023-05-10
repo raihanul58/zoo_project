@@ -6,11 +6,19 @@
 package fact.it.zoo.controller;
 
 
+import fact.it.zoo.model.Staff;
+import fact.it.zoo.model.Visitor;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 @Controller
-public class MainController{
+public class MainController {
    /*You will need these ArrayLists later on.
     private ArrayList<Staff> staffArrayList;
     private ArrayList<Visitor> visitorArrayList;
@@ -19,6 +27,47 @@ public class MainController{
 */
 
 //Write your code here
+    @RequestMapping("/visitor/new")
+    public String addNewVisitor(){
+        return "1_addVisitor";
+    }
+
+    @RequestMapping("/visitor/view")
+    public String viewNewVisitor(HttpServletRequest request, Model model){
+        String firstName = request.getParameter("firstName");
+        String surName = request.getParameter("surName");
+
+        int birthYear = Integer.parseInt(request.getParameter("birthYear"));
+
+        Visitor visitor = new Visitor(firstName, surName);
+
+        model.addAttribute("visitor", visitor);
+        System.out.println("in second controller");
+        return "2_viewVisitor";
+    }
+
+    @RequestMapping("/staff/new")
+    public String addNewStaffMember(Model model){
+        Staff staff = new Staff("", "");
+        model.addAttribute("staff", staff);
+        return "3_addStaffMember";
+    }
+
+    @RequestMapping("/staff/show")
+    public String viewStaffMember(HttpServletRequest request, Model model){
+        String firstName = request.getParameter("firstName");
+        String surName = request.getParameter("surName");
+        String employedSince = request.getParameter("employedSince");
+        boolean student = Boolean.parseBoolean(request.getParameter("student"));
+
+        Staff staff = new Staff(firstName, surName);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        staff.setStartDate(LocalDate.parse(employedSince, dtf));
+        staff.setStudent(student);
+
+        model.addAttribute("staff", staff);
+        return "4_viewStaffMember";
+    }
 
 
 
