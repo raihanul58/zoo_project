@@ -6,6 +6,7 @@
 package fact.it.zoo.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Staff extends Person{
 
@@ -14,6 +15,7 @@ public class Staff extends Person{
 
     public Staff(String firstName, String surName) {
         super(firstName, surName);
+        this.startDate = LocalDate.now();
     }
 
     public LocalDate getStartDate() {
@@ -34,7 +36,9 @@ public class Staff extends Person{
 
     @Override
     public String toString() {
-        if(student) return "Staff member "+super.toString()+" (working student) is employed since "+this.startDate;
-        return "Staff member "+super.toString()+" is employed since "+this.startDate;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        if(student) return "Staff member "+super.toString()+" (working student) is employed since "+this.startDate.format(dtf);
+        return "Staff member "+super.toString()+" is employed since "+this.startDate.format(dtf);
     }
 }

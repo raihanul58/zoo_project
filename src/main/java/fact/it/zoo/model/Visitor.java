@@ -7,9 +7,9 @@ package fact.it.zoo.model;
 
 import java.util.ArrayList;
 
-public class Visitor extends Person{
+public class Visitor extends Person {
 
-    private final String personalCode;
+    private String personalCode;
     private int yearOfBirth;
     private ArrayList<String> wishList = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class Visitor extends Person{
     }
 
     public void setPersonalCode(String personalCode) {
-        this.personalCode = personalCode;
+        if (this.personalCode.equals("undefined")) this.personalCode = personalCode;
     }
 
     public int getYearOfBirth() {
@@ -40,19 +40,19 @@ public class Visitor extends Person{
 
     public boolean addToWishList(String animal) {
         int size = wishList.size();
-        if(size<5) {
+        if (size < 5) {
             wishList.add(animal);
             return true;
         }
         return false;
     }
 
-    public int getNumberOfWishes(){
-        return 1;
+    public int getNumberOfWishes() {
+        return this.wishList.size();
     }
 
     @Override
     public String toString() {
-        return "Visitor "+super.toString()+" with personal code "+this.personalCode;
+        return "Visitor " + super.toString() + " with personal code " + this.personalCode;
     }
 }
