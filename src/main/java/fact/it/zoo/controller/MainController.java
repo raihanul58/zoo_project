@@ -6,8 +6,11 @@
 package fact.it.zoo.controller;
 
 
+import fact.it.zoo.model.AnimalWorld;
 import fact.it.zoo.model.Staff;
 import fact.it.zoo.model.Visitor;
+import fact.it.zoo.model.Zoo;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +18,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 @Controller
 public class MainController {
-   /*You will need these ArrayLists later on.
     private ArrayList<Staff> staffArrayList;
     private ArrayList<Visitor> visitorArrayList;
     private ArrayList<Zoo> zooArrayList;
 
-*/
+    @PostConstruct
+    public void fillStaffVisitorsZooLists() {
+        this.staffArrayList = fillStaffMembers();
+        this.visitorArrayList = fillVisitors();
+        this.zooArrayList = fillZoos();
+    }
 
-//Write your code here
+
     @RequestMapping("/visitor/new")
-    public String addNewVisitor(){
+    public String addNewVisitor(Model model){
+        model.addAttribute("zoos", zooArrayList);
         return "1_addVisitor";
     }
 
@@ -40,9 +49,15 @@ public class MainController {
         int birthYear = Integer.parseInt(request.getParameter("birthYear"));
 
         Visitor visitor = new Visitor(firstName, surName);
+        visitor.setYearOfBirth(birthYear);
+        int zooIndex = Integer.parseInt(request.getParameter("zooIndex"));
+
+        Zoo zoo = zooArrayList.get(zooIndex);
+        zoo.registerVisitor(visitor);
+
+        visitorArrayList.add(visitor);
 
         model.addAttribute("visitor", visitor);
-        System.out.println("in second controller");
         return "2_viewVisitor";
     }
 
@@ -69,13 +84,39 @@ public class MainController {
         return "4_viewStaffMember";
     }
 
+    @RequestMapping("/staff/list")
+    public String listStaffMembers(Model model) {
+        model.addAttribute("staffmembers", staffArrayList);
+        return "5_listStaffMembers";
+    }
+
+    @RequestMapping("/visitor/list")
+    public String listVisitors(Model model) {
+        model.addAttribute("visitors", visitorArrayList);
+        return "6_listVisitors";
+    }
+
+    @RequestMapping("/zoo/new")
+    public String addNewZoo() {
+        return "7_addZoo";
+    }
+
+    @RequestMapping("/zoo/list")
+    public String listZoos(HttpServletRequest request, Model model) {
+        String zooName = request.getParameter("zooName");
+
+        if(zooName != null) {
+            Zoo zoo = new Zoo(zooName);
+            zooArrayList.add(zoo);
+        }
+
+        model.addAttribute("zoos", zooArrayList);
+        return "8_listZoos";
+    }
 
 
 
 
-
-
-/*You will need these methods later on.
    private ArrayList<Staff> fillStaffMembers() {
         ArrayList<Staff> staffMembers = new ArrayList<>();
 
@@ -120,9 +161,14 @@ public class MainController {
         visitor2.setYearOfBirth(1996);
         Visitor visitor3 = new Visitor("Maria", "Bonetta");
         visitor3.setYearOfBirth(1998);
+        Visitor visitor4 = new Visitor("Md Raihanul Kabir", "Rafi");
+        visitor4.setYearOfBirth(2002);
+
         visitors.add(visitor1);
         visitors.add(visitor2);
         visitors.add(visitor3);
+        visitors.add(visitor4);
+
         visitors.get(0).addToWishList("Dolphin");
         visitors.get(0).addToWishList("Snake");
         visitors.get(1).addToWishList("Lion");
@@ -130,6 +176,9 @@ public class MainController {
         visitors.get(1).addToWishList("Monkey");
         visitors.get(1).addToWishList("Elephant");
         visitors.get(2).addToWishList("Turtle");
+        visitors.get(3).addToWishList("Fox");
+        visitors.get(3).addToWishList("Vulture");
+
         return visitors;
     }
 
@@ -162,6 +211,5 @@ public class MainController {
         zoos.add(zoo3);
         return zoos;
     }
-*/
 
 }

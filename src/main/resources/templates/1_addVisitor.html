@@ -25,8 +25,15 @@
             <label for="birthYear">Year of birth:</label>
             <input type="text" id="birthYear" name="birthYear">
         </p>
+        <p th:each="zoo:${zoos}">
+            <label th:for="${zooStat.index}" th:text="${zoo.getName()}"></label>
+            <input type="radio" name="zooIndex"
+                    th:value="${zooStat.index}"
+                    th:id="${zooStat.index}"
+                    th:checked="${zooStat.index}==0">
+        </p>
         <p>
-            <input type="submit" value="Continue without personal code">
+            <input type="submit" value="Continue and generate personal code">
         </p>
     </form>
 
