@@ -81,6 +81,8 @@ public class MainController {
         staff.setStartDate(LocalDate.parse(employedSince, dtf));
         staff.setStudent(student);
 
+        staffArrayList.add(staff);
+
         model.addAttribute("staff", staff);
         return "4_viewStaffMember";
     }
