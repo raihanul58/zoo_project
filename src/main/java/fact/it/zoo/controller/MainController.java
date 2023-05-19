@@ -10,6 +10,7 @@ import fact.it.zoo.model.AnimalWorld;
 import fact.it.zoo.model.Staff;
 import fact.it.zoo.model.Visitor;
 import fact.it.zoo.model.Zoo;
+import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -112,6 +113,91 @@ public class MainController {
 
         model.addAttribute("zoos", zooArrayList);
         return "8_listZoos";
+    }
+
+    @RequestMapping("/animal-world/new")
+    public String addAnimalWorld(Model model) {
+        AnimalWorld animalWorld = new AnimalWorld();
+
+
+        model.addAttribute("animalWorld", animalWorld);
+        model.addAttribute("zoos", zooArrayList);
+        model.addAttribute("staffMembers", staffArrayList);
+
+        return "9_addAnimalWorld";
+    }
+
+    @RequestMapping("/animal-worlds/list")
+    public String listAnimalWorlds(HttpServletRequest request, Model model) {
+        String animalWorldName = request.getParameter("animalWorldName");
+
+        int zooIndex = Integer.parseInt(request.getParameter("zooIndex"));
+
+
+        if (zooIndex != -1 && StringUtils.isBlank(animalWorldName)) {
+            //when we click on any of zoo
+            Zoo newZoo = zooArrayList.get(zooIndex);
+            model.addAttribute("zoo", newZoo);
+
+            return "10_listAnimalWorlds";
+        }
+        AnimalWorld newAnimalWorld = new AnimalWorld(animalWorldName);
+
+        int numberOfAnimals;
+        if(request.getParameter("animalsNumber") != null) {
+            numberOfAnimals = Integer.parseInt(request.getParameter("animalsNumber"));
+            newAnimalWorld.setNumberOfAnimals(numberOfAnimals);
+        }
+
+        if (zooIndex == -1) {
+            //that means user has not selected anything from the dropdown of zoo
+            model.addAttribute("errorMessage", "You didn't choose a zoo!");
+            return "error";
+        }
+
+        int staffMemberIndex;
+
+        if(request.getParameter("staffMemberIndex") != null) {
+            staffMemberIndex = Integer.parseInt(request.getParameter("staffMemberIndex"));
+
+            if (staffMemberIndex == -1) {
+                //that means user has not selected anything from the dropdown of staff members
+                model.addAttribute("errorMessage", "You didn't choose a staff member!");
+                return "error";
+            }
+
+            Staff newStaffMember = staffArrayList.get(staffMemberIndex);
+            newAnimalWorld.setResponsible(newStaffMember);
+        }
+
+
+        String photo = request.getParameter("photo");
+        newAnimalWorld.setPhoto(photo);
+
+        Zoo newZoo = zooArrayList.get(zooIndex);
+        newZoo.addAnimalWorld(newAnimalWorld);
+
+        model.addAttribute("zoo", newZoo);
+
+        return "10_listAnimalWorlds";
+    }
+
+    @RequestMapping("/animal-world/list")
+    public String listAnimalWorld(HttpServletRequest request, Model model) {
+        String keyword = request.getParameter("search");
+
+        for (Zoo zoo : zooArrayList) {
+            AnimalWorld animalWorld = zoo.searchAnimalWorldByName(keyword);
+
+            if (animalWorld != null) {
+                model.addAttribute("animalWorld", animalWorld);
+                return "11_listAnimalWorld";
+            }
+        }
+
+        //if we reach here, that means the searched animal world is not present in our zoos
+        model.addAttribute("errorMessage", "There is no animal world with the name '" + keyword + "'");
+        return "error";
     }
 
 
