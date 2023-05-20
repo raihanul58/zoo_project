@@ -9,36 +9,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoo Project - Rafi</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/img/style.css}">
+
+    <!-- search button-->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Thomas More Zoo Project - Rafi</h1>
-    <form th:action="@{/animal-world/list}">
-        <div class="searchContainer">
-            <input type="text" name="search" placeholder="Search animal world">
-            <div class="search"></div>
-        </div>
-    </form>
-    <p>
-        <a th:href="@{/visitor/new}">New visitor</a><br>
-    </p>
-    <p>
-        <a th:href="@{/staff/new}">New staff member</a>
-    </p>
-    <p>
-        <a th:href="@{/staff/list}">List of staff members</a>
-    </p>
-    <p>
-        <a th:href="@{/visitor/list}">List of visitors</a>
-    </p>
-    <p>
-        <a th:href="@{/zoo/new}">New zoo</a>
-    </p>
-    <p>
-        <a th:href="@{/zoo/list}">List of zoos</a>
-    </p>
-    <p>
-        <a th:href="@{/animal-world/new}">New animal world</a>
-    </p>
+
+<div class="container">
+    <div>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+
+            <div class="collapse navbar-collapse" id="topNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <h3 class="nav-link">Thomas More Zoo Project - Rafi</h3>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+    <!--Rectangles-->
+    <div class="rectangleBody">
+        <a th:href="@{/visitor/new}">
+            <img class="rectangle1"/>
+            <div class="text" style="left: 6%; top: 30%;">New visitor</div>
+        </a>
+
+        <a th:href="@{/staff/new}">
+            <img class="rectangle2"/>
+            <div class="text" style="left: 3%; top: 79%;">New staff member</div>
+        </a>
+
+        <a th:href="@{/staff/list}">
+            <img class="rectangle3"/>
+            <div class="text" style="left: 33%; top: 7%;">List of</div>
+            <div class="text" style="left: 30%; top: 15%;">staff members</div>
+        </a>
+
+        <a th:href="@{/visitor/list}">
+            <img class="rectangle4"/>
+            <div class="text" style="left: 33%; top: 56%;">List of</div>
+            <div class="text" style="left: 33%; top: 63%;">visitors</div>
+        </a>
+
+        <a th:href="@{/zoo/new}">
+            <img class="rectangle5"/>
+            <div class="text" style="left: 56%; top: 30%;">New zoo</div>
+        </a>
+
+
+        <a th:href="@{/zoo/list}">
+            <img class="rectangle6"/>
+            <div class="text" style="left: 57%; top: 77%;">List of</div>
+            <div class="text" style="left: 58%; top: 83%;">zoos</div>
+        </a>
+
+        <!--search button-->
+        <img class="rectangle7"/>
+        <form th:action="@{/animal-world/list}">
+            <div class="searchContainer">
+                <input type="text" name="search" placeholder="Search...">
+                <div class="search"></div>
+            </div>
+        </form>
+
+        <a th:href="@{/animal-world/new}">
+            <img class="rectangle8"/>
+            <div class="text" style="left: 79%; top: 59%;">New animal</div>
+            <div class="text" style="left: 82%; top: 66%;">world</div>
+        </a>
+    </div>
+
+
+    <!--footer-->
+    <footer class="bg-dark text-center text-white">
+        <p class="footer">Zoo Project</p>
+    </footer>
+</div>
 
 </body>
 </html>
