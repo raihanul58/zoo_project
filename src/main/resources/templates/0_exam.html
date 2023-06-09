@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>List zoos</title>
+</head>
+<body>
+<h1 th:text="'Welcome '+${visitor}"></h1>
+
+<p th:text="'You will be guided by '+${visitor.getGuide().getFirstName()}+' '+${visitor.getGuide().getSurName()}"></p>
+
+<p>
+    <a th:href="@{/}">Back to home page</a>
+</p>
+
+</body>
+</html>

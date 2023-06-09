@@ -32,6 +32,16 @@
                     th:id="${zooStat.index}"
                     th:checked="${zooStat.index}==0">
         </p>
+
+        <p>
+            <select name="staffMemberIndex" id="guide">
+                <option value="-1">Who will guide this visitor?</option>
+                <option th:each="staffmember: ${staffmembers}"
+                        th:text="${staffmember.getFirstName()}+' '+${staffmember.getSurName()}"
+                        th:value="${staffmemberStat.index}"/>
+            </select>
+        </p>
+
         <p>
             <input type="submit" value="Continue and generate personal code">
         </p>

@@ -41,6 +41,7 @@ public class MainController {
     @RequestMapping("/visitor/new")
     public String addNewVisitor(Model model){
         model.addAttribute("zoos", zooArrayList);
+        model.addAttribute("staffmembers", staffArrayList);
         return "1_addVisitor";
     }
 
@@ -268,6 +269,11 @@ public class MainController {
         visitors.get(2).addToWishList("Turtle");
         visitors.get(3).addToWishList("Fox");
         visitors.get(3).addToWishList("Vulture");
+
+        visitor1.setGuide(staffArrayList.get(0));
+        visitor2.setGuide(staffArrayList.get(1));
+        visitor3.setGuide(staffArrayList.get(2));
+        visitor4.setGuide(staffArrayList.get(3));
 
         return visitors;
     }

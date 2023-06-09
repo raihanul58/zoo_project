@@ -12,6 +12,7 @@ public class Visitor extends Person {
     private String personalCode;
     private int yearOfBirth;
     private ArrayList<String> wishList = new ArrayList<>();
+    private Staff guide;
 
     public Visitor(String firstName, String surName) {
         super(firstName, surName);
@@ -36,6 +37,12 @@ public class Visitor extends Person {
 
     public ArrayList<String> getWishList() {
         return wishList;
+    }
+    public Staff getGuide() {
+        return guide;
+    }
+    public void setGuide(Staff guide) {
+        this.guide = guide;
     }
 
     public boolean addToWishList(String animal) {
