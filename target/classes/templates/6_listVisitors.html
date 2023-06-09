@@ -26,7 +26,7 @@
 <h3>Our visitors:</h3>
 <ol>
     <li th:each="visitor:${visitors}">
-        <span th:text="${visitor.getFirstName()}+' '+${visitor.getSurName()}"></span>
+        <a href="@{/2_viewVisitor}"><span th:text="${visitor.getFirstName()}+' '+${visitor.getSurName()}"></span></a>
         <ul class="circle">
             <li>
                 <span th:text="'year of birth: '+${visitor.getYearOfBirth()}"></span>
