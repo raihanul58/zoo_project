@@ -1,0 +1,43 @@
+<!--
+  Name: Md Raihanul Kabir Rafi
+  R- number: r0913740
+-->
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add staff member</title>
+</head>
+<body>
+<form th:action="@{/staff/show}" th:object="${staff}">
+    <p>
+        <label for="firstName">First name </label>
+        <input type="text" id="firstName" name="firstName">
+    </p>
+    <p>
+        <label for="surName">Surname </label>
+        <input type="text" id="surName" name="surName">
+    </p>
+    <p>
+        <label for="employedSince">Employed since (dd/mm/yyyy) </label>
+        <input type="text" id="employedSince" name="employedSince">
+    </p>
+    <p>
+        <input type="checkbox" th:field="*{student}" id="student">
+        <label for="student">working student?</label>
+    </p>
+    <p>
+        <input type="submit" value="Confirm staff member">
+    </p>
+
+
+</form>
+<p>
+    <a th:href="@{/}">Back to home page</a>
+</p>
+
+
+</body>
+</html>
